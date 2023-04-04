@@ -1,6 +1,7 @@
 package com.example.apiplanetastestesautomatizados.domain;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 @Table(name = "planetas")
@@ -12,6 +13,12 @@ public class Planeta {
     private String nome;
     private String clima;
     private String terreno;
+
+    public Planeta(String nome, String clima, String terreno) {
+        this.nome = nome;
+        this.clima = clima;
+        this.terreno = terreno;
+    }
 
     public Long getId() {
         return id;
@@ -43,5 +50,10 @@ public class Planeta {
 
     public void setTerreno(String terreno) {
         this.terreno = terreno;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return EqualsBuilder.reflectionEquals(object, this);
     }
 }
