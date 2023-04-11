@@ -1,7 +1,9 @@
 package com.example.apiplanetastestesautomatizados.domain;
 
 import static com.example.apiplanetastestesautomatizados.common.PlanetaConstantes.PLANETA;
+import static com.example.apiplanetastestesautomatizados.common.PlanetaConstantes.PLANETA_INVALIDO;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -9,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 @ExtendWith(MockitoExtension.class)
 //@SpringBootTest(classes = PlanetaService.class)-(logs maiores)
@@ -38,6 +37,11 @@ public class PlanetaServiceTest {
         //assert - (aferir, verificar se o subtest é o que esperava)
         assertThat(sut).isEqualTo(PLANETA);
     }
+    @Test
+    public void criarPlaneta_ComDadosInvalidos_ThrowsException() {
+        when(planetaRepository.save(PLANETA_INVALIDO)).thenThrow(RuntimeException.class);
 
+        assertThatThrownBy(() -> planetaService.create(PLANETA_INVALIDO)).isInstanceOf(RuntimeException.class);
 
+    }
 }
