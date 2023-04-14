@@ -2,6 +2,9 @@ package com.example.apiplanetastestesautomatizados.domain;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.stream.DoubleStream;
+
 @Service
 public class PlanetaService {
 
@@ -15,4 +18,7 @@ public class PlanetaService {
         return planetaRepository.save(planeta);
     }
 
+    public Optional<Planeta> get(Long id) {
+        return planetaRepository.findById(id);
+    }
 }
